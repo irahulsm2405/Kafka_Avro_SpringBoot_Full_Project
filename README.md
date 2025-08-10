@@ -19,10 +19,10 @@ To use this application:
 - Start all 3 server is separate terminals. Once the first server starts others need to be started within 20 seconds as server-1 will try to connect to server-2 and server-3 as per configs, if taken more time then server-1 will timeout and shutdown. (Note: servers need to be up before running our java app else it will timeout and shutdown)
 
 2. Spring boot project:
-- Import producer, core and 2 consumers in an ide.
+- Import producer, core and 3 consumers in an ide.
 - On core project class: Right click -> Run as -> Maven install
 - Run producer as a spring boot app
-- Run consumers as a spring boot app
+- Run consumers as spring boot apps
 
 3. Database:
 - This project locally uses mySQL server for a local Database.
@@ -33,10 +33,12 @@ To use this application:
 4. Testing
 - You can use any API testing app to send a post request. Tool used for this app was Postman.
 
-Once a request is sent, the app will save the Employee details in Database as well as send the event to topic. Email and SMS consumer will read this message and extract data necessary for them and send email or sms.
+Once a request is sent, the app will save the Employee details in Database as well as send the event to topic. Email(Consumer-1), SMS(Consumer-2), Calling(Consumer-3) will read this message and extract data necessary for them and send email, sms or calling.
 
 Tips in case of issues:
 
 1. Kafka issues: delete the topic, stop servers, generate uuid, format directories, delete temp logs and start the servers again.
 2. Core project issues: Clean the project and run it as maven install.
-3. Spring boot issues: Clean project, update maven and restart apps. Sometimes spring-boot-dev-tools can cause issues so disable it ad then retry.
+3. Spring boot issues: Clean project, update maven and restart apps. Sometimes spring-boot-dev-tools can cause issues so disable it ad then retry. Better dont use it.
+
+There is also another way to use Avro and that is with confluent. Confluent needs another registry server to be started seperately but it skips the manual serialization and deserialization of EmployeeEvent class. So use confuent if needed as per requirement.
