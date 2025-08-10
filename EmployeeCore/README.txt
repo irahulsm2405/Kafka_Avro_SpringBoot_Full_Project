@@ -1,0 +1,3 @@
+- Added Avro dependency
+- Added Avro schema file and path (src/main/avro, EmployeeEvent.avsc)
+- Added build configurations in pom.xml file
