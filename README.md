@@ -1,10 +1,10 @@
-This is a fully ready to run kafka-springboot project
+This is a fully ready to run kafka-springboot project with Avro data type (Manual serialization and deserialization)
 
 It includes:
 
 1. A Spring boot kafka producer which is responsible for creating a new employee. And after saving the employee it will send a message to kafka topic "new-employee-created-event"
-2. Two Spring boot kafka consumers, one responsible for sending an sms and other for sending an email. Both will read fora message from topic and once they receive a new user, email and phone will be extracted and console will print messages as email and sms sent. (Note: it will not send actual sms or email. Its just for logic purposes)
-3. A 3 broker kafka cluster (server-1, server-2, server-3). (Note: We are using kraft servers and not zookeeper)
+2. Three Spring boot kafka consumers, responsible for sending an sms, sending an email and giving a call. Both will read for a message from topic and once they receive a new user, email and phone will be extracted and console will print messages as calling, email and sms sent. (Note: it will not send actual sms or email. Its just for logical purposes)
+3. A 3 broker kafka cluster (server-1, server-2, server-3). (Note: We are using kraft servers and not zookeeper as its legacy)
 4. A core project which separates the event logic from producer and consumers so that multiple consumers can use them just by adding a maven dependency. It helps in resuing the code and helps avoid creating same class everytime in every consumer.
 
 To use this application:
@@ -13,11 +13,10 @@ To use this application:
 - Download the kafka folder normally and place in C drive.
 - Navigate to C:\kafka\bin for MAC or C:\kafka\bin\windows for Windows
 - Generate uuid: kafka-storage.bat random-uuid
-- Format all servers directory: kafka-storage.bat format -t {uuid} -c {server config file path}. 
-			    eg: kafka-storage.bat format -t WlnVNqhpRXKzZDstLy-BHA -c C:\kafka\config\kraft\server-1.properties
-- Do same for all server files. Once all directories are formatted we can servers.
-- Start the servers: kafka-server-start.bat C:\kafka\config\kraft\server-1.properties
-- Start all 3 server is separate terminals. Once the first server starts others need to be started within 20 seconds as server-1 will try to connect to server-2 and server-3 as per          configs, if taken more time then server-1 willtomeout and shutdown. (Note: servers need to be up before running our java app else it will timeout and shutdown)
+- Format all servers directory: kafka-storage.bat format -t {uuid} -c {server config file path}. eg: kafka-storage.bat format -t WlnVNqhpRXKzZDstLy-BHA -c C:\kafka\config\kraft\server-1.properties
+- Do same for all server files. Once all directories are formatted we can start servers.
+- Start the servers: kafka-server-start.bat C:\kafka\config\kraft\server-1.properties. Changes the properties file for other 2 two servers the same way
+- Start all 3 server is separate terminals. Once the first server starts others need to be started within 20 seconds as server-1 will try to connect to server-2 and server-3 as per configs, if taken more time then server-1 will timeout and shutdown. (Note: servers need to be up before running our java app else it will timeout and shutdown)
 
 2. Spring boot project:
 - Import producer, core and 2 consumers in an ide.
